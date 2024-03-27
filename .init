@@ -1,0 +1,57 @@
+echo "Make an empty directory where you want to make all your projects"
+read -p "Enter path/to/your/dir from home dir whithout ~: " path_to_dir
+
+path_to_dir=/home/$(whoami)/$path_to_dir
+
+while [ ! -d "$path_to_dir" ] || [ ! -z "$(ls -A $path_to_dir)" ] 
+do
+if [ ! -d "$path_to_dir" ]
+then
+echo "you entered a non-existent folder"
+else
+echo "your folder is not empty"
+fi 
+read -p "Enter path/to/your/dir from home dir whithout ~: " path_to_dir
+path_to_dir=/home/$(whoami)/$path_to_dir
+done
+
+touch /home/$(whoami)/.new_project
+chmod +x /home/$(whoami)/.new_project
+echo "$path_to_dir/.new_project" > /home/$(whoami)/.new_project
+
+touch /home/$(whoami)/.new_folder
+chmod +x /home/$(whoami)/.new_folder
+echo "$path_to_dir/.new_folder" > /home/$(whoami)/.new_folder
+
+touch /home/$(whoami)/.new_file
+chmod +x /home/$(whoami)/.new_file
+echo "$path_to_dir/.new_file" > /home/$(whoami)/.new_file
+
+mkdir $path_to_dir/.scripts
+
+touch $path_to_dir/.scripts/.new_file
+cat ./.scripts/.new_file > $path_to_dir/.scripts/.new_file
+touch $path_to_dir/.scripts/.new_folder
+cat ./.scripts/.new_folder > $path_to_dir/.scripts/.new_folder
+touch $path_to_dir/.scripts/.new_project
+cat ./.scripts/.new_project > $path_to_dir/.scripts/.new_project
+
+touch $path_to_dir/.new_file
+cat ./.scripts/.new_file > $path_to_dir/.new_file
+touch $path_to_dir/.new_folder
+cat ./.scripts/.new_folder > $path_to_dir/.new_folder
+touch $path_to_dir/.new_project
+cat ./.scripts/.new_project > $path_to_dir/.new_project
+
+chmod +x $path_to_dir/.new_file
+chmod +x $path_to_dir/.new_folder
+chmod +x $path_to_dir/.new_project
+
+cd $path_to_dir
+
+echo "let's make folder structure"
+echo "for example if you want to make all projects in two types for home and for school,"
+echo "you can make folders 'home' and 'school', and if you have in school a lot of subjects,"
+echo "and all of them needs projects you can make folders for all of them"
+$path_to_dir/.new_folder
+
