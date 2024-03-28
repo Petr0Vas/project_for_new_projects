@@ -1,0 +1,9 @@
+pip install --upgrade pip
+
+pip install -r requirements.txt --upgrade
+
+pip-autoremove -y
+
+pip install $(pip list --outdated --format=freeze | awk -F '==' '{print $1}')
+
+python main.py
