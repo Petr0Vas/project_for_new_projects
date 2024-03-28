@@ -1,7 +1,7 @@
 echo "Make an empty directory where you want to make all your projects"
 read -p "Enter path/to/your/dir from home dir whithout ~: " path_to_dir
 
-path_to_dir=/home/$(whoami)/$path_to_dir
+path_to_dir=$HOME/$path_to_dir
 
 while [ ! -d "$path_to_dir" ] || [ ! -z "$(ls -A $path_to_dir)" ] 
 do
@@ -12,20 +12,20 @@ else
 echo "your folder is not empty"
 fi 
 read -p "Enter path/to/your/dir from home dir whithout ~: " path_to_dir
-path_to_dir=/home/$(whoami)/$path_to_dir
+path_to_dir=$HOME/$path_to_dir
 done
 
-touch /home/$(whoami)/.new_project
-chmod +x /home/$(whoami)/.new_project
-echo "$path_to_dir/.new_project" > /home/$(whoami)/.new_project
+touch $HOME/.new_project
+chmod +x $HOME/.new_project
+echo "$path_to_dir/.new_project" > $HOME/.new_project
 
-touch /home/$(whoami)/.new_folder
-chmod +x /home/$(whoami)/.new_folder
-echo "$path_to_dir/.new_folder" > /home/$(whoami)/.new_folder
+touch $HOME/.new_folder
+chmod +x $HOME/.new_folder
+echo "$path_to_dir/.new_folder" > $HOME/.new_folder
 
-touch /home/$(whoami)/.new_file
-chmod +x /home/$(whoami)/.new_file
-echo "$path_to_dir/.new_file" > /home/$(whoami)/.new_file
+touch $HOME/.new_file
+chmod +x $HOME/.new_file
+echo "$path_to_dir/.new_file" > $HOME/.new_file
 
 mkdir $path_to_dir/.scripts
 
