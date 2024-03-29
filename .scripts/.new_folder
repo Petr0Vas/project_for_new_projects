@@ -1,40 +1,32 @@
-read -p "Do you want to make a folder here ( $( pwd ) ) (Y(y) as Yes, N(n) as No): " answer
+read -p "Do you want to make a folder here ( $( pwd ) ) (print name_of_folder if Yes, print No (no) if No): " answer
 
-while [[ $answer = "Y" && $answer = "y" && $answer = "N" && $answer = "n" ]]
+while [[ $answer != "No" && $answer != "no" ]]
 do
-read -p "Do you want to make a folder here (Y(y) as Yes, N(n) as No): " answer
+	mkdir ./$answer
+	mkdir ./$answer/.scripts
+	cp -r ./.scripts ./$answer
+	touch ./$answer/.new_folder
+	touch ./$answer/.new_file
+	touch ./$answer/.new_project
+
+	cat ./$answer/.scripts/.new_folder > ./$answer/.new_folder
+	cat ./$answer/.scripts/.new_file > ./$answer/.new_file
+	cat ./$answer/.scripts/.new_project > ./$answer/.new_project
+
+	chmod +x ./$answer/.new_folder
+	chmod +x ./$answer/.new_file
+	chmod +x ./$answer/.new_project
+	read -p "Do you want to make a folder here ( $( pwd ) ) (print name_of_folder if Yes, print No (no) if No): " answer
 done
 
-if [[ $answer == "N" || $answer = "n" ]]
-then
-cd ../
-if [[ $( pwd ) != /home/$(whoami) && -e ./.new_folder ]] 
-then
-./.new_folder
-fi
-exit
-fi
-  
-read -p "What is the name of new folder: " name_of_folder
-mkdir ./$name_of_folder
-cd ./$name_of_folder
-touch .new_folder
-touch .new_file
-touch .new_project
+directories=$(find . -type d -not -path '*/\.*' -not -path '.')
 
-mkdir ./.scripts
-touch ./.scripts/.new_folder
-touch ./.scripts/.new_file
-touch ./.scripts/.new_project
+find . -type d -not -path '*/\.*' -not -path '.'
 
-cat ../.scripts/.new_folder > .new_folder
-cat ../.scripts/.new_file > .new_file
-cat ../.scripts/.new_project > .new_project
-cat ../.scripts/.new_folder > ./.scripts/.new_folder
-cat ../.scripts/.new_file > ./.scripts/.new_file
-cat ../.scripts/.new_project > ./.scripts/.new_project
+for dir in $directories; do
+    cd ./$dir
 
-chmod +x .new_folder
-chmod +x .new_file
-chmod +x .new_project
-./.new_folder
+    ./.new_folder
+
+    cd ..
+done

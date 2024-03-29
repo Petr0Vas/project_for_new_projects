@@ -2,10 +2,19 @@ sudo apt install python3
 
 sudo apt install python3-pip
 
-pip3 install pipreqs
-
-pip3 install pip-autoremove
+sudo apt install python3.10-venv
 
 python3 -m venv venv
 
 source venv/bin/activate
+
+touch .make_reqs
+chmod +x .make_reqs
+cat ./.scripts/.scripts_for_python/.make_reqs > ./.make_reqs
+
+touch .run
+chmod +x .run
+cat ./.scripts/.scripts_for_python/.run > ./.run
+
+touch .install_reqs.py
+cat ./.scripts/.scripts_for_python/.install_reqs.py > ./.install_reqs.py

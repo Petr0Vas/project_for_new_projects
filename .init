@@ -29,29 +29,24 @@ echo "$path_to_dir/.new_file" > $HOME/.new_file
 
 mkdir $path_to_dir/.scripts
 
-touch $path_to_dir/.scripts/.new_file
-cat ./.scripts/.new_file > $path_to_dir/.scripts/.new_file
-touch $path_to_dir/.scripts/.new_folder
-cat ./.scripts/.new_folder > $path_to_dir/.scripts/.new_folder
-touch $path_to_dir/.scripts/.new_project
-cat ./.scripts/.new_project > $path_to_dir/.scripts/.new_project
-
-touch $path_to_dir/.new_file
-cat ./.scripts/.new_file > $path_to_dir/.new_file
-touch $path_to_dir/.new_folder
-cat ./.scripts/.new_folder > $path_to_dir/.new_folder
-touch $path_to_dir/.new_project
-cat ./.scripts/.new_project > $path_to_dir/.new_project
-
-chmod +x $path_to_dir/.new_file
-chmod +x $path_to_dir/.new_folder
-chmod +x $path_to_dir/.new_project
+cp -r ./.scripts $path_to_dir
 
 cd $path_to_dir
+
+touch .new_file
+cat ./.scripts/.new_file > .new_file
+touch .new_folder
+cat ./.scripts/.new_folder > .new_folder
+touch $path_to_dir/.new_project
+cat ./.scripts/.new_project > .new_project
+
+chmod +x .new_file
+chmod +x .new_folder
+chmod +x .new_project
 
 echo "let's make folder structure"
 echo "for example if you want to make all projects in two types for home and for school,"
 echo "you can make folders 'home' and 'school', and if you have in school a lot of subjects,"
 echo "and all of them needs projects you can make folders for all of them"
-$path_to_dir/.new_folder
+./.new_folder
 

@@ -1,11 +1,22 @@
+source venv/bin/activate
+
+rm -rf requirements.txt
+
 touch requirements.txt
 
-for file in $(find . -name "*.py"); do
-	pipreqs $file --force --print
+# Проходим по всем файлам с расширением .py в проекте
+find . -name "*.py" -type f -print0 | while IFS= read -r -d '' file; do
+    # Ищем строки, начинающиеся с "import" или "from"
+    grep -E "^import |^from " "$file" | while IFS= read -r line; do
+        # Извлекаем название библиотеки из строки
+        library=$(echo "$line" | awk '{print $2}' | tr -d ,)
+        
+        # Проверяем, что библиотека не является стандартной
+        if ! python -c "import $library" >/dev/null 2>&1; then
+            # Добавляем библиотеку в файл requirements.txt, если она еще не добавлена
+            if ! grep -q "^$library" requirements.txt; then
+                echo "$library" >> requirements.txt
+            fi
+        fi
+    done
 done
-
-cat */requirements.txt >> requirements.txt
-
-sort -u requirements.txt -o requirements.txt
-
-pip install -r requirements.txt
