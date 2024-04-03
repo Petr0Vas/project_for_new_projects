@@ -1,5 +1,1 @@
 source venv/bin/activate
-
-./.make_reqs
-
-./main

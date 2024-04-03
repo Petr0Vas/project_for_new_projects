@@ -1,22 +1,98 @@
-source venv/bin/activate
+# Функция для создания requirements.txt
+create_requirements() {
+    local venv_path="$1"
+    local requirements_file="$2"
 
-rm -rf requirements.txt
+    # Очищаем файл requirements.txt
+    echo "# Auto-generated requirements.txt" > "$requirements_file"
 
-touch requirements.txt
-
-# Проходим по всем файлам с расширением .py в проекте
-find . -name "*.py" -type f -print0 | while IFS= read -r -d '' file; do
-    # Ищем строки, начинающиеся с "import" или "from"
-    grep -E "^import |^from " "$file" | while IFS= read -r line; do
-        # Извлекаем название библиотеки из строки
-        library=$(echo "$line" | awk '{print $2}' | tr -d ,)
-        
-        # Проверяем, что библиотека не является стандартной
-        if ! python -c "import $library" >/dev/null 2>&1; then
-            # Добавляем библиотеку в файл requirements.txt, если она еще не добавлена
-            if ! grep -q "^$library" requirements.txt; then
-                echo "$library" >> requirements.txt
-            fi
+    # Проходим по всем установленным пакетам в виртуальном окружении
+    "$venv_path/bin/pip" freeze | while read -r package; do
+        # Проверяем, установлена ли пакет локально
+        if ! grep -q "^$package\$" "$requirements_file"; then
+            echo "$package" >> "$requirements_file"
         fi
     done
-done
+}
+
+# Функция для установки пакета, если он не установлен
+install_package() {
+    local venv_path="$1"
+    local package="$2"
+
+    # Проверяем, что имя пакета не пустое
+    if [ -n "$package" ]; then
+        # Проверяем, является ли пакет dotenv
+        if [ "$package" == "dotenv" ]; then
+            package="python-dotenv"
+        fi
+        if [ "$package" == "simple_history" ]; then
+            package="django-simple-history"
+        fi
+        if [ "$package" == "tinymce" ]; then
+            package="django-tinymce"
+        fi
+		if [ "$package" == "ckeditor" ]; then
+            package="django-ckeditor"
+        fi
+        if [ "$package" == "OpenSSL" ]; then
+            package="pyopenssl"
+        fi
+        if [ "$package" == "ntml" ]; then
+            package="ntml-auth"
+        fi
+        if [ "$package" == "winreg" ]; then
+            package="winregistry"
+        fi
+        if [ "$package" == "msilib" ]; then
+            package="micropython-msilib"
+        fi
+        
+		
+        # Проверяем, установлена ли пакет в виртуальном окружении
+        if ! "$venv_path/bin/pip" show "$package" >/dev/null 2>&1; then
+            echo "Installing $package..."
+            "$venv_path/bin/pip" install "$package"
+        fi
+    fi
+}
+
+# Путь к виртуальному окружению
+venv_path="$(pwd)/venv"
+# Путь к requirements.txt
+requirements_file="$(pwd)/requirements.txt"
+
+# Проверяем, существует ли виртуальное окружение
+if [ ! -d "$venv_path" ]; then
+    echo "Virtual environment not found. Creating..."
+    python3 -m venv "$venv_path"
+fi
+
+# Проверяем, существует ли файл requirements.txt
+if [ ! -f "$requirements_file" ]; then
+    echo "requirements.txt not found. Creating..."
+    create_requirements "$venv_path" "$requirements_file"
+fi
+
+source venv/bin/activate
+
+# Проходим по всем файлам проекта рекурсивно
+while IFS= read -r -d '' file; do
+    # Ищем импорты в файле
+    if [[ "$file" != *"/venv/"* ]]; then
+	    grep -E '^(from |import )' "$file" | while read -r import_line; do
+    		# Извлекаем имя пакета из строки импорта
+    		package=$(echo "$import_line" | sed -E 's/^(from |import )//' | cut -d' ' -f1 | cut -d'.' -f1 | cut -d ',' -f1)
+    		# Проверяем, является ли пакет встроенным
+    		if ! python3 -c "import $package" >/dev/null 2>&1; then
+    	    	# Устанавливаем пакет, если он не установлен
+    	    	install_package "$venv_path" "$package"
+    		fi
+		done
+	fi
+done < <(find . -name '*.py' -type f -print0)
+
+# Обновляем requirements.txt
+create_requirements "$venv_path" "$requirements_file"
+
+echo "Done."

@@ -16,5 +16,6 @@ touch .run
 chmod +x .run
 cat ./.scripts/.scripts_for_python/.run > ./.run
 
-touch .install_reqs.py
-cat ./.scripts/.scripts_for_python/.install_reqs.py > ./.install_reqs.py
+touch main
+chmod +x main
+cat ./.scripts/.scripts_for_python/main > ./main
