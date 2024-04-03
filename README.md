@@ -22,7 +22,21 @@ ___This project is made for creating and edditing new project___
 Then if you want to make new project you can run: `./.new_project` while you are in each folder from home path (~) to ~/path/where/you/want/to/make/it and follow directions, __but only at home folder or somewhere in folder you maded in init__
 
 __If you are making project from some folder, you can make it only in this folder or folders inside this!!!__
+
+if you want to make project you can use ./.new_project following the rules described above
+
+while following directions you can add readme file, add git-repository, add to your github-repository or clone it and choose language of your project
 ### Making new folder
 if you want to make folder you can use ./.new_folder following the rules described above
 ### Making new file
 if you want to make file you can use ./.new_file following the rules described above
+
+## featches of python projects:
+__if you chose python project it will add venv to your project and add commands below__ 
+### Make requirements.txt
+if you want to make requirements.txt automaticly you can run `./.make_reqs`, and you don't even need to install all libraries it will install it automaticly, but it can workwith bugs
+### Run program
+If you want to run program you can run `./.run`, but you need to write in main file bash script:
+```python3 <file> <function>```
+and if you need not only one function to run program you can write more then one line, but first line is need to be `source venv/bin/activate`
+
