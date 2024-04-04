@@ -50,5 +50,5 @@ echo "let's make folder structure"
 echo "for example if you want to make all projects in two types for home and for school,"
 echo "you can make folders 'home' and 'school', and if you have in school a lot of subjects,"
 echo "and all of them needs projects you can make folders for all of them"
-./.new_folder
 ./.make_copies_of_scripts 2>/dev/null
+./.new_folder
