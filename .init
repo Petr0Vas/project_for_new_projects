@@ -1,52 +1,54 @@
-echo "Make an empty directory where you want to make all your projects"
-read -p "Enter path/to/your/dir from home dir whithout ~: " path_to_dir
+#!/usr/bin/env bash
+echo "Make a directory where you want to make all your projects"
+# shellcheck disable=SC2162
+read -p "Enter path/to/your/dir: " path_to_dir
 
-path_to_dir=$HOME/$path_to_dir
+path_to_dir=${path_to_dir#*~}
+path_to_dir="$HOME"/"$path_to_dir"
 
-while [ ! -d "$path_to_dir" ] || [ ! -z "$(ls -A $path_to_dir)" ] 
-do
-if [ ! -d "$path_to_dir" ]
-then
-echo "you entered a non-existent folder"
-else
-echo "your folder is not empty"
-fi 
-read -p "Enter path/to/your/dir from home dir whithout ~: " path_to_dir
-path_to_dir=$HOME/$path_to_dir
-done
+if [ ! -d "$path_to_dir" ]; then
+    mkdir "$path_to_dir"
+fi
 
-touch $HOME/.new_project
-chmod +x $HOME/.new_project
-echo "$path_to_dir/.new_project" > $HOME/.new_project
+touch "$HOME"/.new_project
+chmod +x "$HOME"/.new_project
+echo "cd \"$path_to_dir\" && ./.new_project" >"$HOME"/.new_project
 
-touch $HOME/.new_folder
-chmod +x $HOME/.new_folder
-echo "$path_to_dir/.new_folder" > $HOME/.new_folder
+touch "$HOME"/.new_folder
+chmod +x "$HOME"/.new_folder
+echo "cd \"$path_to_dir\" && ./.new_folder" >"$HOME"/.new_folder
 
-touch $HOME/.new_file
-chmod +x $HOME/.new_file
-echo "$path_to_dir/.new_file" > $HOME/.new_file
+touch "$HOME"/.new_file
+chmod +x "$HOME"/.new_file
+echo "cd \"$path_to_dir\" && ./.new_file" >"$HOME"/.new_file
 
-mkdir $path_to_dir/.scripts
+touch "$HOME"/make_copies_of_scripts
+chmod +x "$HOME"/.make_copies_of_scripts
+echo "cd \"$path_to_dir\" && ./.make_copies_of_scripts" >"$HOME"/.make_copies_of_scripts
 
-cp -r ./.scripts $path_to_dir
+mkdir "$path_to_dir"/.scripts
 
-cd $path_to_dir
+cp -r ./.scripts "$path_to_dir"
+
+cd "$path_to_dir" || exit
 
 touch .new_file
-cat ./.scripts/.new_file > .new_file
+cat ./.scripts/.new_file >.new_file
 touch .new_folder
-cat ./.scripts/.new_folder > .new_folder
-touch $path_to_dir/.new_project
-cat ./.scripts/.new_project > .new_project
+cat ./.scripts/.new_folder >.new_folder
+touch "$path_to_dir"/.new_project
+cat ./.scripts/.new_project >.new_project
+touch .make_copies_of_scripts
+cat ./.scripts/.make_copies_of_scripts >.make_copies_of_scripts
 
 chmod +x .new_file
 chmod +x .new_folder
 chmod +x .new_project
+chmod +x .make_copies_of_scripts
 
 echo "let's make folder structure"
 echo "for example if you want to make all projects in two types for home and for school,"
 echo "you can make folders 'home' and 'school', and if you have in school a lot of subjects,"
 echo "and all of them needs projects you can make folders for all of them"
 ./.new_folder
-
+./.make_copies_of_scripts 2>/dev/null

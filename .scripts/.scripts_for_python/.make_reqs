@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # Функция для создания requirements.txt
 create_requirements() {
     local venv_path="$1"

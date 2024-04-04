@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+directories=$(find . -type d -not -path '*/\.*' -not -path '.')
+
+for dir in $directories; do
+    cd ./"$dir" || exit
+
+    mkdir ./.scripts
+    cp -r ./.scripts .
+    touch ./.new_folder
+    touch ./.new_file
+    touch ./.new_project
+    touch ./.make_copies_of_scripts
+
+    cat ./.scripts/.new_folder >./.new_folder
+    cat ./.scripts/.new_file >./.new_file
+    cat ./.scripts/.new_project >./.new_project
+    cat ./.scripts/.make_copies_of_scripts >./.make_copies_of_scripts
+
+    chmod +x ./.new_folder
+    chmod +x ./.new_file
+    chmod +x ./.new_project
+    chmod +x ./.make_copies_of_scripts
+
+    ./.make_copies_of_scripts
+
+    cd ..
+done

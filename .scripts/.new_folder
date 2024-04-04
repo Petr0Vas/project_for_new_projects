@@ -1,32 +1,35 @@
-read -p "Do you want to make a folder here ( $( pwd ) ) (print name_of_folder if Yes, print No (no) if No): " answer
+#!/usr/bin/env bash
+# shellcheck disable=SC2162
+read -p "Do you want to make a folder here ( $(pwd) ) (print name_of_folder if Yes, print No (no) if No): " answer
 
-while [[ $answer != "No" && $answer != "no" ]]
-do
-	mkdir ./$answer
-	mkdir ./$answer/.scripts
-	cp -r ./.scripts ./$answer
-	touch ./$answer/.new_folder
-	touch ./$answer/.new_file
-	touch ./$answer/.new_project
+while [[ $answer != "No" && $answer != "no" ]]; do
+	mkdir ./"$answer"
+	mkdir ./"$answer"/.scripts
+	cp -r ./.scripts ./"$answer"
+	touch ./"$answer"/.new_folder
+	touch ./"$answer"/.new_file
+	touch ./"$answer"/.new_project
+	touch ./"$answer"/.make_copies_of_scripts
 
-	cat ./$answer/.scripts/.new_folder > ./$answer/.new_folder
-	cat ./$answer/.scripts/.new_file > ./$answer/.new_file
-	cat ./$answer/.scripts/.new_project > ./$answer/.new_project
+	cat ./"$answer"/.scripts/.new_folder >./"$answer"/.new_folder
+	cat ./"$answer"/.scripts/.new_file >./"$answer"/.new_file
+	cat ./"$answer"/.scripts/.new_project >./"$answer"/.new_project
+	cat ./"$answer"/.scripts/.make_copies_of_scripts >./"$answer"/.make_copies_of_scripts
 
-	chmod +x ./$answer/.new_folder
-	chmod +x ./$answer/.new_file
-	chmod +x ./$answer/.new_project
-	read -p "Do you want to make a folder here ( $( pwd ) ) (print name_of_folder if Yes, print No (no) if No): " answer
+	chmod +x ./"$answer"/.new_folder
+	chmod +x ./"$answer"/.new_file
+	chmod +x ./"$answer"/.new_project
+	chmod +x ./"$answer"/.make_copies_of_scripts
+
+	read -p "Do you want to make a folder here ( $(pwd) ) (print name_of_folder if Yes, print No (no) if No): " answer
 done
 
 directories=$(find . -type d -not -path '*/\.*' -not -path '.')
 
-find . -type d -not -path '*/\.*' -not -path '.'
-
 for dir in $directories; do
-    cd ./$dir
+	cd ./"$dir" || exit
 
-    ./.new_folder
+	./.new_folder
 
-    cd ..
+	cd ..
 done
