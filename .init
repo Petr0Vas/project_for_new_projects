@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
-echo "Make a directory where you want to make all your projects"
+
 # shellcheck disable=SC2162
+
+echo "Make a directory where you want to make all your projects"
 read -p "Enter path/to/your/dir: " path_to_dir
 
 path_to_dir=${path_to_dir#*~}

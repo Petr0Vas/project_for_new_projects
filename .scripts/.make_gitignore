@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+touch .gitignore
+
+read -p "Do you want to add gitignore file to gitignore? Yes(yes, Y, y) if yes or No(no, N, n) if no: " answer
+while [ "$answer" != "No" ] && [ "$answer" != "no" ] && [ "$answer" != "N" ] && [ "$answer" != "n" ] && [ "$answer" != "Yes" ] && [ "$answer" != "yes" ] && [ "$answer" != "Y" ] && [ "$answer" != "y" ]; do
+    read -p "Do you want to add gitignore file to gitignore? Yes(yes, Y, y) if yes or No(no, N, n) if no: " answer
+done
+if [ "$answer" != "No" ] && [ "$answer" != "no" ] && [ "$answer" != "N" ] && [ "$answer" != "n" ]; then
+    echo "/.gitignore" >.gitignore
+fi
+
+read -p "Do you want to add all scripts file maded by project_for_new_projects? Yes(yes, Y, y) if yes or No(no, N, n) if no: " answer
+while [ "$answer" != "No" ] && [ "$answer" != "no" ] && [ "$answer" != "N" ] && [ "$answer" != "n" ] && [ "$answer" != "Yes" ] && [ "$answer" != "yes" ] && [ "$answer" != "Y" ] && [ "$answer" != "y" ]; do
+    read -p "Do you want to add all scripts file maded by project_for_new_projects? Yes(yes, Y, y) if yes or No(no, N, n) if no: " answer
+done
+if [ "$answer" != "No" ] && [ "$answer" != "no" ] && [ "$answer" != "N" ] && [ "$answer" != "n" ]; then
+    {
+        echo "**/scripts"
+        echo "/.make_reqs"
+        echo "/.new_project"
+        echo "/.run"
+        echo "/main"
+        echo "/.clone_git"
+        echo "/.init_git"
+        echo "/.new_make_copies_of_scrips"
+        echo "/.make_gitignore"
+        echo "/.new_file"
+        echo "/.new_folder"
+    } >>.gitignore
+fi

@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+# shellcheck disable=SC1091
+
 # Функция для создания requirements.txt
 create_requirements() {
     local venv_path="$1"

@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+answer="$1"
+git clone "answer"
+
+tmp="${answer#*/}"
+answer2="${tmp%.*}"
+mkdir ./"$answer2"/.scripts
+cp -r ./.scripts ./"$answer2"
+touch ./"$answer2"/.new_folder
+touch ./"$answer2"/.new_file
+touch ./"$answer2"/.new_project
+touch ./"$answer2"/.make_copies_of_scripts
+
+cat ./"$answer2"/.scripts/.new_folder >./"$answer2"/.new_folder
+cat ./"$answer2"/.scripts/.new_file >./"$answer2"/.new_file
+cat ./"$answer2"/.scripts/.new_project >./"$answer2"/.new_project
+cat ./"$answer2"/.scripts/.make_copies_of_scripts >./"$answer2"/.make_copies_of_scripts
+
+chmod +x ./"$answer2"/.new_folder
+chmod +x ./"$answer2"/.new_file
+chmod +x ./"$answer2"/.new_project
+chmod +x ./"$answer2"/.make_copies_of_scripts
+cd "$answer2" || exit
+
+touch ./.init_git
+cat ./.scripts/.init_git >./.init_git
+chmod +x ./.init_git
+
+./.init_git
+git branch -M main
+git remote add origin "$answer"
+# add scripts to work whith github

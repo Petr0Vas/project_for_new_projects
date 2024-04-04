@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# shellcheck disable=SC2162
+
+git init
+
+touch ./.make_gitignore
+cat ./.scripts/.make_gitignore >./.make_gitignore
+chmod +x ./.make_gitignore
+
+echo "Do you want to make a gitignore file here?"
+echo "You can do it later by runing ./.make_gitignore"
+read -p "Do you want to make a gitignore file here? Yes(yes, Y, y) if yes or No(no, N, n) if no: " answer
+while [ "$answer" != "No" ] && [ "$answer" != "no" ] && [ "$answer" != "N" ] && [ "$answer" != "n" ] && [ "$answer" != "Yes" ] && [ "$answer" != "yes" ] && [ "$answer" != "Y" ] && [ "$answer" != "y" ]; do
+    read -p "Do you want to make a gitignore file here? Yes(yes, Y, y) if yes or No(no, N, n) if no: " answer
+done
+if [ "$answer" != "No" ] && [ "$answer" != "no" ] && [ "$answer" != "N" ] && [ "$answer" != "n" ]; then
+    ./.make_gitignore
+else
+    exit
+fi
+
+# add scripts to work whith git
