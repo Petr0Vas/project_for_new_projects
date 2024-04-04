@@ -52,7 +52,7 @@ if [ "$answer" != "No" ] && [ "$answer" != "no" ]; then
     chmod +x ./"$answer2"/.new_file
     chmod +x ./"$answer2"/.new_project
     chmod +x ./"$answer2"/.make_copies_of_scripts
-    cd answer2 || exit
+    cd "$answer2" || exit
     git init
     git branch -M main
     git remote add origin "$answer"
