@@ -116,7 +116,7 @@ echo "1) empty project"
 echo "2) bash"
 echo "3) Python"
 read -p "[1-3]: " answer 
-while "$answer" <= 1 || "$answer" >= 3
+while [ "$answer" -lt 1 ]  || [ "$answer" -gt 3 ]
 do
     read -p "[1-3]: " answer    
 done
