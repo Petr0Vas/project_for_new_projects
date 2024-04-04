@@ -21,3 +21,5 @@ cat ./.scripts/.scripts_for_python/.run > ./.run
 touch main
 chmod +x main
 cat ./.scripts/.scripts_for_python/main > ./main
+
+touch main.py
