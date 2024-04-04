@@ -31,7 +31,8 @@ directories=$(ls -d */ | grep -v '^\.')
 for dir in $directories; do
 	cd "$dir" || exit
 
-	./.new_folder || :
-
+	if [ -f ./.new_folder ]; then
+		./.new_folder
+	fi
 	cd ..
 done
