@@ -2,7 +2,7 @@
 # shellcheck disable=SC2162
 read -p "Do you want to make a folder here ( $(pwd) ) (print name_of_folder if Yes, print No (no) if No) NWH (nwh) if nowhere here: " answer
 
-while [[ "$answer" != "No" && "$answer" != "no" && "$answer" != "nwh" && "$answer" != "NWH" ]]; do
+while [[ "$answer" != "No" && "$answer" != "no" && "$answer" != "n" && "$answer" != "N" && "$answer" != "nwh" && "$answer" != "NWH" ]]; do
 	mkdir ./"$answer"
 	mkdir ./"$answer"/.scripts
 	cp -r ./.scripts ./"$answer"
@@ -24,7 +24,7 @@ while [[ "$answer" != "No" && "$answer" != "no" && "$answer" != "nwh" && "$answe
 	read -p "Do you want to make a folder here ( $(pwd) ) (print name_of_folder if Yes, print No (no) if No): " answer
 done
 
-if [ "$answer" != "NWH" && "$answer" != "nwh" ]; then
+if [[ "$answer" != "NWH" && "$answer" != "nwh" ]]; then
 	# shellcheck disable=SC2035
 	# shellcheck disable=SC2010
 	directories=$(ls -d */ 2>/dev/null | grep -v '^\.')
