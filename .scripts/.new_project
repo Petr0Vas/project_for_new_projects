@@ -25,6 +25,8 @@ while [ "$answer" != "Here" ] && [ "$answer" != "here" ]; do
     fi
 
     cd "$answer" || exit
+    read -p "Where do you want to make a new project? Print a name of directory or Here(Here): " answer
+
 done
 
 # --------make-a-new-script-for-githab-repo-and-run-it-here--------
