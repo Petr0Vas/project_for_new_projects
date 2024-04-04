@@ -4,7 +4,7 @@
 read -p "Where do you want to make a new project? Print a name of directory or Here(Here): " answer
 
 while [ "$answer" != "Here" ] && [ "$answer" != "here" ]; do
-    if ! [ -d "$answer" ]; then
+    if [ ! -d "$answer" ]; then
         mkdir ./"$answer"
         mkdir ./"$answer"/.scripts
         cp -r ./.scripts ./"$answer"
@@ -59,7 +59,7 @@ else
 
     read -p "What will be the name of project: " answer
 
-    if ! [ -d "$answer" ]; then
+    if [ ! -d "$answer" ]; then
         mkdir ./"$answer"
         mkdir ./"$answer"/.scripts
         cp -r ./.scripts ./"$answer"
