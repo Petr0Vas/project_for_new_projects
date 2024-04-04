@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-directories=$(find . -type d -not -path '*/\.*' -not -path '.')
+# shellcheck disable=SC2035
+# shellcheck disable=SC2010
+directories=$(ls -d */ 2>/dev/null | grep -v '^\.')
 
 for dir in $directories; do
     mkdir ./"$dir"
