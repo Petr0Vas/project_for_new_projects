@@ -27,7 +27,7 @@ done
 directories=$(find . -type d -not -path '*/\.*' -not -path '.')
 
 for dir in $directories; do
-	cd ./"$dir" || exit
+	cd "$dir" || exit
 
 	./.new_folder
 
