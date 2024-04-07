@@ -24,6 +24,36 @@ for dir in $directories; do
 	chmod +x ./"$dir"/.new_project
 	chmod +x ./"$dir"/.make_copies_of_scripts
 
+	if [ -f ./"$dir"/.make_gitignore ]; then
+		touch ./"$dir"/.make_gitignore
+		cat ./"$dir"/.scripts/.make_gitignore > ./"$dir"/.make_gitignore
+		chmod +x ./"$dir"/.make_gitignore
+	fi
+	if [ -f ./"$dir"/.clone_git ]; then
+		touch ./"$dir"/.clone_git
+		cat ./"$dir"/.scripts/.clone_git > ./"$dir"/.clone_git
+		chmod +x ./"$dir"/.clone_git
+	fi
+	if [ -f ./"$dir"/.init_git ]; then
+		touch ./"$dir"/.init_git
+		cat ./"$dir"/.scripts/.init_git > ./"$dir"/.init_git
+		chmod +x ./"$dir"/.init_git
+	fi
+	if [ -f ./"$dir"/.run ]; then
+		touch ./"$dir"/.run
+		cat ./"$dir"/.scripts/.scripts_for_python/.run > ./"$dir"/.run
+		chmod +x ./"$dir"/.run
+	fi
+	if [ -f ./"$dir"/.make_reqs ]; then
+		touch ./"$dir"/.make_reqs
+		cat ./"$dir"/.scripts/.scripts_for_python/.make_reqs > ./"$dir"/.make_reqs
+		chmod +x ./"$dir"/.make_reqs
+	fi
+	if [ -f ./"$dir"/main ]; then
+		touch ./"$dir"/main
+		cat ./"$dir"/.scripts/.scripts_for_python/main > ./"$dir"/main
+		chmod +x ./"$dir"/main
+	fi
     cd ./"$dir" || exit
 
     ./.make_copies_of_scripts

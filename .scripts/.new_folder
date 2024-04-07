@@ -4,7 +4,7 @@
 # shellcheck disable=SC2010
 # shellcheck disable=SC2162
 
-read -p "Do you want to make a folder here ( $(pwd) ) (print name_of_folder if Yes, print No (no) if No) NWH (nwh) if nowhere here: " answer
+read -p "Do you want to make a folder here ( $(pwd) ) print name_of_folder if Yes, print No (no) if No) NWH (nwh) if nowhere here: " answer
 
 while [[ "$answer" != "No" && "$answer" != "no" && "$answer" != "n" && "$answer" != "N" && "$answer" != "nwh" && "$answer" != "NWH" ]]; do
 	mkdir ./"$answer"
@@ -25,7 +25,7 @@ while [[ "$answer" != "No" && "$answer" != "no" && "$answer" != "n" && "$answer"
 	chmod +x ./"$answer"/.new_project
 	chmod +x ./"$answer"/.make_copies_of_scripts
 
-	read -p "Do you want to make a folder here ( $(pwd) ) (print name_of_folder if Yes, print No (no) if No): " answer
+	read -p "Do you want to make a folder here ( $(pwd) ) print name_of_folder if Yes, print No (no) if No) NWH (nwh) if nowhere here: " answer
 done
 
 if [[ "$answer" != "NWH" && "$answer" != "nwh" ]]; then
